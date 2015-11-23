@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:gravity="center_vertical|center_horizontal">
+
+    <TextView
+        android:id="@+id/Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/donation_adview"
+        android:layout_alignRight="@+id/donation_adview"
+
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textSize="20dp"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/donation_adview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Tv"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="center_horizontal"
+        android:layoutMode="opticalBounds"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"/>
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="100px"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/donation_adview"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:text=" Ok "
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"/>
+
+
+</RelativeLayout>
+
+    <!--<ImageView-->
+    <!--android:id="@+id/imageView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="3px"-->
+    <!--android:src="@drawable/pop"/>-->
+
+

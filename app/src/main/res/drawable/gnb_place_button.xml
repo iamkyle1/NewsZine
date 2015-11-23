@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- normal -->
+    <item android:drawable="@drawable/b_title_place_nor" android:state_pressed="false"/>
+    <!-- press -->
+    <item android:drawable="@drawable/b_title_place_pre" android:state_pressed="true"/>
+
+</selector>

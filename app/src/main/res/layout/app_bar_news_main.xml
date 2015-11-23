@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:contentScrim="?attr/colorPrimary"
+    app:expandedTitleMarginEnd="64dp"
+    app:expandedTitleMarginStart="48dp"
+    tools:context=".NewsMain">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="scroll|enterAlways"
+        >
+
+        <!-- Toolbar + 위치 아이콘/검색 아이콘등을 표시 -->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <LinearLayout
+                android:id="@+id/gnb_topbar_right_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="right|center_vertical">
+
+                <!-- 툴바의 위치 아이콘-->
+                <!--<ImageView-->
+                <!--android:id="@+id/gnb_topbar_place_btn"-->
+                <!--android:layout_width="36dp"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:clickable="true"-->
+                <!--android:contentDescription="place"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/gnb_place_button"/>-->
+                <!--중간 간겨격-->
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:id="@+id/gnb_topbar_search_btn"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/gnb_search_button"/>
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/bigMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            android:scrollbars="horizontal"
+            />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <include layout="@layout/main_viewpagers"/>
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="655dp"
+        android:layoutMode="opticalBounds"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+    <!--</RelativeLayout>-->
+</android.support.design.widget.CoordinatorLayout>

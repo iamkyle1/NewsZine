@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">NewsZine</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">OK Cahsbagf 라거커 </string>
+    <string name="search">search</string>
+
+        <string name="long_text">Android 5.0 Lollipop was one of the most significant Android releases ever,
+        in no small part due to the introduction of material design,
+        a new design language that refreshed the entire Android experience
+    </string>
+
+    <!--//구글 ad id-->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="facebook_app_id">897449093666408</string>
+</resources>

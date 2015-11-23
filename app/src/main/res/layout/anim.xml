@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/layout"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="100dp"
+    android:layout_marginTop="100dp"
+    android:alpha="100"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:foregroundGravity="center_horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical">
+        <!--android:background="#fefefe"-->
+
+        <TextView
+            android:id="@+id/Tv"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:text="제작자에게 조금의 도움을 주세요
+            광고 클릭 해주는 센스 ~~ ^^"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:typeface="serif"/>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/donation_adview"
+            android:layout_below="@id/Tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layoutMode="opticalBounds"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"/>
+
+        <Button
+            android:id="@+id/dialogButtonOK"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/donation_adview"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="40dp"
+            android:text=" 그냥 나가기"
+            android:foregroundGravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#b7b4b4"
+            android:background="#6f6d6d"
+            android:textSize="20dp"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

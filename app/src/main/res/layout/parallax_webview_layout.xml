@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dylee.newszine.CustomViewGroup.CustomFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.dylee.newszine.CustomViewGroup.CustomWebview
+        android:id="@+id/webview_in_parallax"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_in_parallax"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <RelativeLayout
+            android:id="@+id/gnb_topbar_right_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!--android:gravity="left|center_vertical"-->
+            <ImageView
+                android:id="@+id/exit_btn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="0dp"
+                android:clickable="true"
+                android:longClickable="true"
+                android:src="@drawable/exit_search_button"
+                android:layout_centerVertical="true"/>
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/sTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/exit_btn"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:textSize="20dp"
+                android:nestedScrollingEnabled="true"
+                android:textStyle="bold"
+                android:textColor="@color/title_color"
+                android:textIsSelectable="true"/>
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/search_btn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/gnb_search_button"
+                android:layout_marginRight="30dp"
+                android:layout_centerVertical="true"/>
+
+            <View
+                android:layout_width="9dp"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/bigMenu"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/toolbar"-->
+    <!--android:background="?attr/colorPrimary"-->
+    <!--android:scrollbars="horizontal"-->
+    <!--android:fillViewport="false" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+    <!--<com.dylee.newszine.util.MyNestedScrollView-->
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@id/appbar"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+
+    <!--<WebView-->
+    <!--android:id="@+id/webview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@id/toolbar" />-->
+
+
+    <!--</com.dylee.newszine.util.MyNestedScrollView>-->
+    <!--<include layout="@layout/main_viewpagers"/>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<WebView-->
+    <!--android:id="@+id/webview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" />-->
+
+
+    <!--</LinearLayout>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mid_back_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/backeky_margin"
+        android:tintMode="multiply"
+        android:src="@drawable/back_btn"
+        app:backgroundTint="#828282"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#ffffff"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible"/>
+    />
+</com.dylee.newszine.CustomViewGroup.CustomFrameLayout>

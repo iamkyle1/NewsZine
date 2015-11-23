@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.dylee.newszine.util.searchActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <com.dylee.newszine.CustomViewGroup.AnimatedListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.32"
+            android:contextClickable="false"
+            android:divider="@color/material_grey_900"
+            android:dividerHeight="1dp"
+            android:fastScrollEnabled="true"/>
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                android:id="@+id/exit_search_btn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical|left"
+                android:layout_marginLeft="0dp"
+                android:src="@drawable/exit_search_button"/>
+            <!-- 툴바의 위치 아이콘-->
+            <!--중간 간겨격-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+
+                android:baselineAligned="true"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="266dp"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:id="@+id/search_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:hint="input your search keyword"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#A8b5b3"/>
+                    <!--<View-->
+                    <!--android:id="@+id/search_underbar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="900dp"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_gravity="bottom"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_weight="90"-->
+                    <!--android:background="@drawable/b_underbar"/>-->
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/start_search_btn"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/gnb_search_button"/>
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </FrameLayout>
+    <!--</LinearLayout>-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/botton_right_up_scroll_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="10dp"
+        android:tintMode="multiply"
+        app:backgroundTint="#828282"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:fabSize="mini"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="#ffffff"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>
