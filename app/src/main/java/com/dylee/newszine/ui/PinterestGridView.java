@@ -85,7 +85,7 @@ public class PinterestGridView extends LinearLayout {
             if (i == 2 || i % 3 == 2)
                 m_Line3.addView(v);
         }
-        Log.v("countTAG", "" + count);
+//        Log.v("countTAG", "" + count);
     }
 
     private void AddItem() {

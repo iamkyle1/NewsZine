@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -57,6 +58,9 @@ public class MagazineAdapter extends BaseAdapter {
     RelativeLayout RelativeLO;
     LinearLayout LinearLO;
     FrameLayout FLO;
+    List<ImageView> mMainImage=new ArrayList<ImageView>();
+    List<ImageView> mBottomImage=new ArrayList<ImageView>();
+
 
     public static class MagazineViewHolder {
         public int mDisplayPosition;
@@ -68,22 +72,31 @@ public class MagazineAdapter extends BaseAdapter {
     }
 
     final Activity mActivity;
+    final Fragment mFragment;
+    //    final Context mContext;
     final ArrayList<HuffNews> mDataSetList = new ArrayList<>();
 
     boolean backPressState = false;
     final LayoutInflater mInflater;
+//
+//    public MagazineAdapter(Activity context) {
+//        super();
+//        this.mActivity = context;
+//        this.mInflater = LayoutInflater.from(mActivity);
+//    }
 
-    public MagazineAdapter(Activity context) {
+    public MagazineAdapter(Fragment context, Activity act) {
         super();
-        this.mActivity = context;
+        this.mActivity = act;
+        this.mFragment = context;
         this.mInflater = LayoutInflater.from(mActivity);
     }
-
 
     @Override
     public int getCount() {
         if (this.mDataSetList != null) {
-            Log.i("Size = ", " +  itemCount" + this.mDataSetList.size());
+
+//            Log.i("Size = ", " +  itemCount" + this.mDataSetList.size());
             return this.mDataSetList.size();
         }
         return 0;
@@ -101,6 +114,7 @@ public class MagazineAdapter extends BaseAdapter {
     }
 
 //    this.mDataSetList.
+
 
     public void ordering() {
 
@@ -166,6 +180,25 @@ public class MagazineAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void clearGlide() {
+
+        if(DEBUG) Qlog.i(TAG, "enter clearglide()"+ mMainImage.size());
+//        if (mMainImage.size()>0 ) {
+//            for (ImageView img : mMainImage) {
+//                Glide.clear(img);
+//                if(DEBUG) Qlog.i(TAG, "clearglide():clear Main Image");
+//            }
+//        }
+//
+//        if (mMainImage.size()>0 ) {
+//            for (ImageView img : mBottomImage) {
+//                Glide.clear(img);
+//                if(DEBUG) Qlog.i(TAG, "clearglide():clear Main Image");
+//            }
+//        }
+
+
+    }
 
     public void getMainPicture(final View convertView, final MagazineViewHolder holder, final HuffNews mainFeed, final int position) {
         RoundedCornersTransformation mRctf = new RoundedCornersTransformation(mActivity, 10, 0, RoundedCornersTransformation.CornerType.TOP);
@@ -187,152 +220,172 @@ public class MagazineAdapter extends BaseAdapter {
                 Qlog.i(TAG, "fed URL2  =" + mainFeed.getDestinationURL());
             }
         }
+        try {
+            if (!mFragment.isDetached()) {
+//                Glide.clear(holder.feedPicture);
 
-        Glide.with(mActivity).load(FeedURL).asBitmap().error(R.drawable.while_img).format(DecodeFormat.PREFER_ARGB_8888).placeholder(R.drawable.b_coin_card).transform(mRctf).into(new BitmapImageViewTarget(holder.feedPicture) {
-            @Override
-            public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
-                super.onResourceReady(bitmap, anim);
-                String msg;
-                String mTitle = " ";
-                Log.i("Size of rectangle", " width = " + bitmap.getWidth() + "   height = " + bitmap.getWidth());
+//                Glide.clear(holder.feedPicture);
+                mMainImage.add(holder.feedPicture);
 
-                float mRatio = (getLcdSIzeWidth() / 2) / bitmap.getWidth();
-                int mWidth = (int) (bitmap.getWidth() * mRatio);
-                int mHeight = (int) (bitmap.getHeight() * mRatio);
+//                if(DEBUG) {Qlog.i(TAG," image Size"+ mMainImage.size());}
 
-                gWidth = mWidth;
-                gHeight = mHeight;
+                Glide.with(mActivity).load(FeedURL).asBitmap().error(R.drawable.while_img).format(DecodeFormat.PREFER_ARGB_8888).placeholder(R.drawable.loading_icon).transform(mRctf).into(new BitmapImageViewTarget(holder.feedPicture) {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                        super.onResourceReady(bitmap, anim);
+//                        mMainImage.remove(holder.feedPicture);
+                        String msg;
+                        String mTitle = " ";
+//                        Log.i("Size of rectangle", " width = " + bitmap.getWidth() + "   height = " + bitmap.getWidth());
 
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(gWidth, gHeight);
-                lp.topMargin = 40;
-                lp.leftMargin = 20;
-                holder.feedPicture.setLayoutParams(lp);
+                        float mRatio = (getLcdSIzeWidth() / 2) / bitmap.getWidth();
+                        int mWidth = (int) (bitmap.getWidth() * mRatio);
+                        int mHeight = (int) (bitmap.getHeight() * mRatio);
 
+                        gWidth = mWidth;
+                        gHeight = mHeight;
 
-                getBottomPicture(convertView, holder, mainFeed, position, gWidth);
+                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(gWidth, gHeight);
+                        lp.topMargin = 40;
+                        lp.leftMargin = 20;
+                        holder.feedPicture.setLayoutParams(lp);
 
-                if (mainFeed.getMessage() != null) {
-                    msg = mainFeed.getMessage().trim();
-                    if (msg.length() > 18) {
-                        mTitle = msg.substring(0, 17).concat("...");
-                    } else mTitle = msg;
-                } else {
-                    mTitle = new String("...");
-                }
+                        if (DEBUG & mActivity == null) Qlog.i(TAG, "Activity is null");
 
-                final String titleMSg = mTitle;
+                        getBottomPicture(convertView, holder, mainFeed, position, gWidth);
 
-                holder.feedPicture.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final String urls = mainFeed.getDestinationURLASString();
-                                Intent intent = new Intent(mActivity, ParallaxWebviewActivity.class);
-                                intent.putExtra("uris", urls);
-                                intent.putExtra("title", titleMSg);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                try {
-                                    mActivity.startActivity(intent);
-                                } catch (Exception e) {
-                                    Log.i("  exception", " :" + e);
-                                }
-                            }
-                        });
+                        if (mainFeed.getMessage() != null) {
+                            msg = mainFeed.getMessage().trim();
+                            if (msg.length() > 18) {
+                                mTitle = msg.substring(0, 17).concat("...");
+                            } else mTitle = msg;
+                        } else {
+                            mTitle = new String("...");
+                        }
 
+                        final String titleMSg = mTitle;
 
+                        holder.feedPicture.setOnClickListener(
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        final String urls = mainFeed.getDestinationURLASString();
+                                        Intent intent = new Intent(mActivity, ParallaxWebviewActivity.class);
+                                        intent.putExtra("uris", urls);
+                                        intent.putExtra("title", titleMSg);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        try {
+                                            mActivity.startActivity(intent);
+                                        } catch (Exception e) {
+//                                            Log.i("  exception", " :" + e);
+                                        }
+                                    }
+                                });
+                    }
+
+                    //
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        holder.feedPicture.setScaleX(0);
+                    }
+                });
             }
-
-
-            //
-            @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                holder.feedPicture.setScaleX(0);
+        } catch (Exception e) {
+            if (DEBUG) {
+                Qlog.i(TAG, "Exception occurred at getMainPicture()");
+                e.printStackTrace();
             }
-        });
+        }
     }
 
     public void getBottomPicture(View convertView, final MagazineViewHolder holder, final HuffNews mainFeed, int position, final int Width) {
         RoundedCornersTransformation mBot = new RoundedCornersTransformation(mActivity, 10, 0, RoundedCornersTransformation.CornerType.BOTTOM);
-        Glide.with(mActivity).load(R.drawable.while_img).asBitmap().transform(mBot).into(new BitmapImageViewTarget(holder.mBottomPicture) {
-            @Override
-            public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
-                String msg = " ";
-                String mTitle = " ";
-                String mContents;
-                super.onResourceReady(bitmap, anim);
+        try {
 
-                int mLineNumber, mHeight = 100;
-
-                Resources res = mActivity.getResources();
-                DisplayMetrics dm = res.getDisplayMetrics();
-                float scaleDensity = dm.scaledDensity; //1DP당 픽셀값
-
-                //Reltive layout mBottomPicture에서 Cation과 mMessage에 따라 Height를 결정
-                if (mainFeed.getMessage() != null) {
-                    mContents = mainFeed.getMessage();
-                    msg = mainFeed.getMessage().trim();
-                    mLineNumber = (int) (msg.length() / 20 + 2);
-                    if (msg.length() > 18) {
-                        mTitle = msg.substring(0, 17).concat("...");
-                    } else mTitle = msg;
-                } else {
-                    mContents = msg;
-                    mTitle = new String("....");
-                    mLineNumber = 1;
-                }
-
-                final String titleMSg = mTitle;
-
-                RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(Width, (int) (16 * scaleDensity + 2));
-                lp1.leftMargin = 30;
-                lp1.topMargin = 20;
-                lp1.addRule(RelativeLayout.BELOW, R.id.main_picture);
-                holder.mCaption.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-                holder.mCaption.setTypeface(null, Typeface.BOLD);
-
-                if (mainFeed.getCaption() != null) holder.mCaption.setText(mainFeed.getCaption());
-                else holder.mCaption.setText(" Unknown or National Geographics");
-
-                holder.mCaption.setLayoutParams(lp1);
-
-                mHeight = (int) ((mLineNumber + 1) * 17 * (scaleDensity + 2));
-
-                RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(Width, mHeight);
-                lp2.leftMargin = 30;
-                lp2.topMargin = 20;
-                lp2.addRule(RelativeLayout.BELOW, R.id.source);
-
-                holder.feedMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
-                holder.feedMessage.setTypeface(null, Typeface.BOLD);
-                holder.feedMessage.setText(mContents);
-                holder.feedMessage.setLineSpacing(3.0f, 1.1f);
-
-
-                holder.feedMessage.setLayoutParams(lp2);
-                Log.i("height", " = " + holder.feedMessage.getHeight());
-                Log.i("height", " = " + holder.mCaption.getHeight());
-
-
-                ViewTreeObserver vto = holder.feedMessage.getViewTreeObserver();
-                vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            if (!mFragment.isDetached()) {
+                mBottomImage.add(holder.mBottomPicture);
+                Glide.with(mActivity).load(R.drawable.while_img).asBitmap().transform(mBot).into(new BitmapImageViewTarget(holder.mBottomPicture) {
                     @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
 
-                    public void onGlobalLayout() {
-                        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(Width, holder.feedMessage.getHeight());
-                        lp.addRule(RelativeLayout.BELOW, R.id.main_picture);
-                        lp.leftMargin = 20;
-                        holder.mBottomPicture.setScaleType(ImageView.ScaleType.FIT_XY);
-                        holder.mBottomPicture.setLayoutParams(lp);
-                        Log.i("OnGlolbalLayout", "height=" + holder.feedMessage.getHeight());
+                        String msg = " ";
+                        String mTitle = " ";
+                        String mContents;
+                        super.onResourceReady(bitmap, anim);
+                        mBottomImage.remove(holder.mBottomPicture);
 
-                        ViewTreeObserver obs = holder.feedMessage.getViewTreeObserver();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            obs.removeOnGlobalLayoutListener(this);
+                        int mLineNumber, mHeight = 100;
+
+                        Resources res = mActivity.getResources();
+                        DisplayMetrics dm = res.getDisplayMetrics();
+                        float scaleDensity = dm.scaledDensity; //1DP당 픽셀값
+
+                        //Reltive layout mBottomPicture에서 Cation과 mMessage에 따라 Height를 결정
+                        if (mainFeed.getMessage() != null) {
+                            mContents = mainFeed.getMessage();
+                            msg = mainFeed.getMessage().trim();
+                            mLineNumber = (int) (msg.length() / 20 + 2);
+                            if (msg.length() > 18) {
+                                mTitle = msg.substring(0, 17).concat("...");
+                            } else mTitle = msg;
                         } else {
-                            obs.removeGlobalOnLayoutListener(this);
+                            mContents = msg;
+                            mTitle = new String("....");
+                            mLineNumber = 1;
                         }
-                    }
-                });
+
+                        final String titleMSg = mTitle;
+
+                        RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(Width, (int) (16 * scaleDensity + 2));
+                        lp1.leftMargin = 30;
+                        lp1.topMargin = 20;
+                        lp1.addRule(RelativeLayout.BELOW, R.id.main_picture);
+                        holder.mCaption.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
+                        holder.mCaption.setTypeface(null, Typeface.BOLD);
+
+                        if (mainFeed.getCaption() != null)
+                            holder.mCaption.setText(mainFeed.getCaption());
+                        else holder.mCaption.setText(" Unknown or National Geographics");
+
+                        holder.mCaption.setLayoutParams(lp1);
+
+                        mHeight = (int) ((mLineNumber + 1) * 17 * (scaleDensity + 2));
+
+                        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(Width, mHeight);
+                        lp2.leftMargin = 30;
+                        lp2.topMargin = 20;
+                        lp2.addRule(RelativeLayout.BELOW, R.id.source);
+
+                        holder.feedMessage.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+                        holder.feedMessage.setTypeface(null, Typeface.BOLD);
+                        holder.feedMessage.setText(mContents);
+                        holder.feedMessage.setLineSpacing(3.0f, 1.1f);
+
+
+                        holder.feedMessage.setLayoutParams(lp2);
+//                        Log.i("height", " = " + holder.feedMessage.getHeight());
+//                        Log.i("height", " = " + holder.mCaption.getHeight());
+
+
+                        ViewTreeObserver vto = holder.feedMessage.getViewTreeObserver();
+                        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+
+                            public void onGlobalLayout() {
+                                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(Width, holder.feedMessage.getHeight());
+                                lp.addRule(RelativeLayout.BELOW, R.id.main_picture);
+                                lp.leftMargin = 20;
+                                holder.mBottomPicture.setScaleType(ImageView.ScaleType.FIT_XY);
+                                holder.mBottomPicture.setLayoutParams(lp);
+//                                Log.i("OnGlolbalLayout", "height=" + holder.feedMessage.getHeight());
+                                ViewTreeObserver obs = holder.feedMessage.getViewTreeObserver();
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                    obs.removeOnGlobalLayoutListener(this);
+                                } else {
+                                    obs.removeGlobalOnLayoutListener(this);
+                                }
+                            }
+                        });
 
 //
 //                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(Width, mHeight);
@@ -342,29 +395,42 @@ public class MagazineAdapter extends BaseAdapter {
 //                holder.mBottomPicture.setLayoutParams(lp);
 
 
-                holder.mBottomPicture.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                final String urls = mainFeed.getDestinationURLASString();
-                                Intent intent = new Intent(mActivity, ParallaxWebviewActivity.class);
-                                intent.putExtra("uris", urls);
-                                intent.putExtra("title", titleMSg);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                try {
-                                    mActivity.startActivity(intent);
-                                } catch (Exception e) {
-                                    Log.i("  exception", " :" + e);
-                                }
-                            }
-                        });
-            }
+                        holder.mBottomPicture.setOnClickListener(
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        final String urls = mainFeed.getDestinationURLASString();
+                                        Intent intent = new Intent(mActivity, ParallaxWebviewActivity.class);
+                                        intent.putExtra("uris", urls);
+                                        intent.putExtra("title", titleMSg);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        try {
+                                            mActivity.startActivity(intent);
+                                        } catch (Exception e) {
+//                                            Log.i("  exception", " :" + e);
+                                        }
+                                    }
+                                });
+                    }
 
-            @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                holder.mBottomPicture.setScaleX(0);
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        holder.mBottomPicture.setScaleX(0);
+                    }
+                });
             }
-        });
+        } catch (Exception e) {
+            if (DEBUG) {
+                Qlog.i(TAG, "Exception occurred at getBottomPicture()");
+                e.printStackTrace();
+            }
+            ;
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 
     @Override
@@ -374,7 +440,7 @@ public class MagazineAdapter extends BaseAdapter {
 
     public synchronized void addItem(HuffNews i) {
         mDataSetList.add(i);
-        Log.i("Any Item=", " " + i);
+//        Log.i("Any Item=", " " + i);
         this.notifyDataSetChanged();
     }
 
@@ -408,6 +474,8 @@ public class MagazineAdapter extends BaseAdapter {
     public int getLcdSIzeHeight() {
         return ((WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
     }
+
+
 }
 
 /*

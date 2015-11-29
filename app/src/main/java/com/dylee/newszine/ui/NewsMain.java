@@ -129,7 +129,7 @@ public class NewsMain extends AppCompatActivity
         //  Show menu icon
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.drawer_btn);
-        ab.setTitle("종합뉴스 매거진");
+        ab.setTitle("뉴스모아 : 종합뉴스 매거진");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -173,6 +173,7 @@ public class NewsMain extends AppCompatActivity
 //        });
     }
 
+
     public void setMonetizationAlert() {
 
         // Android 2.3 이상에서 사용 가능한 방식.
@@ -185,7 +186,7 @@ public class NewsMain extends AppCompatActivity
             Qlog.i(TAG, "setMonetizationAlert Started");
         }
         boolean s = DEBUG;
-        Log.i(TAG, "DEBUG " + DEBUG + " " + TAG);
+//        Log.i(TAG, "DEBUG " + DEBUG + " " + TAG);
 
         try {
             PackageManager packageManager = this.getPackageManager();
@@ -214,7 +215,7 @@ public class NewsMain extends AppCompatActivity
             mDaydiff = (now - getDateFromStr(storedAdDate).getTime()) / 1000 / (60 * 60 * 24);
 
             //설치 한지 2주가 되거나, 광고가 뜬지 2주가 지나면..... 광고를 한번 보여 준다.
-            if (mDaydiff > 14) {
+            if (mDaydiff > 7) {
                 if (DEBUG) {
                     Qlog.e(TAG, "AD Needed before mDayDiff = " + mDaydiff);
                 }
@@ -224,7 +225,7 @@ public class NewsMain extends AppCompatActivity
             }
         } else {
             mDaydiff = (now - installed) / 1000 / (60 * 60 * 24);
-            if (mDaydiff > 14) {
+            if (mDaydiff > 7) {
                 if (DEBUG) {
                     Qlog.e(TAG, "AD Needed before mDayDiff = " + mDaydiff);
                 }
@@ -393,7 +394,12 @@ public class NewsMain extends AppCompatActivity
                                 newFragment = new NewsListFragment();
                                 break;
                             case MAGAZINE_FRAGMENT:
+
                                 newFragment = new MagazineFragment();
+//                                Bundle bundle = new Bundle();
+//                                bundle.pu
+//                                bundle.putInt(key, value);
+//                                fragment.setArguments(bundle);
                                 break;
                         }
                         return newFragment;
@@ -404,6 +410,7 @@ public class NewsMain extends AppCompatActivity
                         return super.instantiateItem(container, position);
                     }
                 });
+
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageScrollStateChanged(int state) {
             }
@@ -691,10 +698,10 @@ public class NewsMain extends AppCompatActivity
 
             if (ShareDialog.canShow(ShareLinkContent.class)) {
                 ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                        .setContentTitle("종합 뉴스 매거진 : 다보여")
+                        .setContentTitle("뉴스 모아 : 종합 뉴스 매거진 ")
                         .setContentDescription(
                                 "다음/네이버.. 16여개 사이트 뉴스 모음과 Huff post/네셔날 지오그래픽스를 한손에")
-                        .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                        .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.dylee.newszine"))
                         .setImageUrl(Uri.parse("http://icons.iconarchive.com/icons/designcontest/ecommerce-business/72/news-icon.png"))
                         .build();
                 shareDialog.show(linkContent);

@@ -83,7 +83,7 @@ public class RoundedCornersTransformation implements Transformation<Bitmap> {
         height = source.getHeight();
 
 
-        Log.i("transforme2", " = " + width + " = " + height);
+//        Log.i("transforme2", " = " + width + " = " + height);
 
         Bitmap bitmap = mBitmapPool.get(width, height, Bitmap.Config.ARGB_8888);
         if (bitmap == null) {
@@ -120,7 +120,7 @@ public class RoundedCornersTransformation implements Transformation<Bitmap> {
                 drawBottomRightRoundRect(canvas, paint, right, bottom);
                 break;
             case TOP:
-                Log.i("Rounded     ", "height" + width);
+//                Log.i("Rounded     ", "height" + width);
                 drawTopRoundRect(canvas, paint, right, bottom);
                 break;
             case BOTTOM:
@@ -185,7 +185,7 @@ public class RoundedCornersTransformation implements Transformation<Bitmap> {
     }
 
     private void drawTopRoundRect(Canvas canvas, Paint paint, float right, float bottom) {
-        Log.i("Rect", "  right" + right + "  botton= " + bottom + " margin = " + mMargin + " mDiameter=" + mDiameter + "    mRadius =" + mRadius);
+//        Log.i("Rect", "  right" + right + "  botton= " + bottom + " margin = " + mMargin + " mDiameter=" + mDiameter + "    mRadius =" + mRadius);
         canvas.drawRoundRect(new RectF(mMargin, mMargin, right, mMargin + mDiameter), mRadius, mRadius,
                 paint);
         canvas.drawRect(new RectF(mMargin, mMargin + mRadius, right, bottom), paint);

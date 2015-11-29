@@ -49,7 +49,7 @@ public class NewsAdapter extends ArrayAdapter<NaverNews> {
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.data = data;
-        Log.i("getviewget size", " " + data.size());
+//        Log.i("getviewget size", " " + data.size());
 
     }
 

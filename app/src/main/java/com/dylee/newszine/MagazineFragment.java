@@ -1,5 +1,6 @@
 package com.dylee.newszine;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dylee.newszine.CustomViewGroup.WaterfallView;
 import com.dylee.newszine.adapter.MagazineAdapter;
 import com.dylee.newszine.logging.Qlog;
@@ -41,7 +44,7 @@ import java.util.Arrays;
 
 public class MagazineFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private static final String TAG = MagazineFragment.class.getSimpleName();
-    public static final boolean DEBUG = Boolean.parseBoolean("true");
+    private static final boolean DEBUG = com.dylee.newszine.BuildMode.ENABLE_LOG;
 
     CallbackManager callbackManager;
     Button customLogInButton, customLogOutButton;
@@ -57,6 +60,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
     String name = "";
     String email = "";
     LoginButton loginButton;
+    TextView loginGuide;
     WaterfallView mWaterfallView;
     MagazineAdapter mMagazineAdpater;
 
@@ -67,6 +71,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
 
 
     public MagazineFragment() {
+
     }
 
     @Override
@@ -90,14 +95,23 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                 container, false);
 
         loginButton = (LoginButton) rootView.findViewById(R.id.FB_login_button);
+        loginGuide =(TextView)rootView.findViewById(R.id.FB_login_guide);
+        loginGuide.setText("Facebook에 로그인 하시면, WIKITree등의 다양한 뉴스를 보실수 있습니다");
+
         loginButton.setOnClickListener(this);
 
         mWaterfallView = (WaterfallView) rootView.findViewById(R.id.waterfall_view);
-        mMagazineAdpater = new MagazineAdapter(getActivity());
-        mWaterfallView.setAdapter(mMagazineAdpater);
+//        mMagazineAdpater = new MagazineAdapter(this.getActivity());
+        mMagazineAdpater = new MagazineAdapter(this, this.getActivity());
 
+        mWaterfallView.setAdapter(mMagazineAdpater);
         getPages();
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
     @Override
@@ -113,6 +127,13 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mMagazineAdpater.clearGlide();
+//        Glide.clear();
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
@@ -121,6 +142,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                 Log.i("accestoken =....... ", "= " + accessToken);
                 loginFaceBook();
                 loginButton.setVisibility(View.INVISIBLE);
+                loginGuide.setVisibility(View.INVISIBLE);
                 getPages();
                 break;
         }
@@ -196,6 +218,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
     }
 
 
+
     private class HandlerCallback implements Handler.Callback {
         public int End_state = 0;
 
@@ -232,7 +255,6 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
             }
             return true;
         }
-
     }
 
     public void getHuff() {
@@ -340,11 +362,12 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                 request.executeAsync();
 
                 loginButton.setVisibility(View.INVISIBLE);
-            }
-        } else
+                loginGuide.setVisibility(View.INVISIBLE);
+            } else
 
-        {
-            loginButton.setVisibility(View.VISIBLE);
+
+                loginButton.setVisibility(View.VISIBLE);
+                loginGuide.setVisibility(View.VISIBLE);
         }
 
     }
@@ -359,7 +382,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                     public void onCompleted(GraphResponse graphResponse) {
                         try {
                             JSONObject jsonObject = graphResponse.getJSONObject();
-                            Log.i("Test ", " =" + graphResponse.getRawResponse());
+//                            Log.i("Test ", " =" + graphResponse.getRawResponse());
                             JSONArray jArray = jsonObject.getJSONArray("data");
 
                             for (int i = 0; i < jArray.length(); i++) {
@@ -368,20 +391,20 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                                 try {
                                     String pictureLink = obj.getString("picture");
                                     HFNS.setPictureURL(pictureLink);
-                                    Log.i("feeds picture ", "  = " + pictureLink);
+//                                    Log.i("feeds picture ", "  = " + pictureLink);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String desc = obj.getString("description");
                                     HFNS.setDescription(desc);
-                                    Log.i("feeds picture ", "  = " + desc);
+//                                    Log.i("feeds picture ", "  = " + desc);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String originalPageurls = obj.getString("link");
-                                    Log.i("feeds Url ", "  = " + originalPageurls);
+//                                    Log.i("feeds Url ", "  = " + originalPageurls);
                                     HFNS.setDestinationURL(originalPageurls);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
@@ -389,7 +412,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
 
                                 try {
                                     String message = obj.getString("message");
-                                    Log.i("feeds message ", "  = " + message);
+//                                    Log.i("feeds message ", "  = " + message);
                                     HFNS.setMessage(message);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
@@ -397,43 +420,43 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                                 try {
                                     String caption = obj.getString("caption");
                                     HFNS.setCaption(caption);
-                                    Log.i("feeds caption ", "  = " + caption);
+//                                    Log.i("feeds caption ", "  = " + caption);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String description = obj.getString("description");
                                     HFNS.setDescription(description);
-                                    Log.i("feeds description ", "  = " + description);
+//                                    Log.i("feeds description ", "  = " + description);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String icon = obj.getString("icon");
                                     HFNS.setIconURL(icon);
-                                    Log.i("feeds icon ", "  = " + icon);
+//                                    Log.i("feeds icon ", "  = " + icon);
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String updated_time = obj.getString("updated_time");
                                     HFNS.setUDate(updated_time);
-                                    Log.i("feeds updated_time ", "  = " + updated_time);
+//                                    Log.i("feeds updated_time ", "  = " + updated_time);
                                 } catch (Exception ex) {
-                                    Log.i("feeds ", "created time error");
+//                                    Log.i("feeds ", "created time error");
                                     ex.printStackTrace();
                                 }
                                 try {
                                     String created_time = obj.getString("created_time");
                                     HFNS.setCDate(created_time);
-                                    Log.i("feeds created_time ", "  = " + created_time);
+//                                    Log.i("feeds created_time ", "  = " + created_time);
                                 } catch (Exception ex) {
-                                    Log.i("feeds ", "created time error");
+//                                    Log.i("feeds ", "created time error");
                                     ex.printStackTrace();
                                 }
                                 if (HFNS.getDestinationURL() != null & HFNS.getPictureURL() != null)
                                     mMagazineAdpater.addItem(HFNS);
-                                Log.i("String", "  =" + HFNS);
+//                                Log.i("String", "  =" + HFNS);
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -447,12 +470,13 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                 parameters.putString("fields", "id,picture,link, message,caption,description,icon,updated_time,created_time");
                 request2.setParameters(parameters);
                 request2.executeAsync();
-
                 loginButton.setVisibility(View.INVISIBLE);
+                loginGuide.setVisibility(View.INVISIBLE);
             } else
 
             {
                 loginButton.setVisibility(View.VISIBLE);
+                loginGuide.setVisibility(View.VISIBLE);
             }
         }
         ;
@@ -548,7 +572,7 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                                 }
                                 if (HFNS.getDestinationURL() != null & HFNS.getPictureURL() != null)
                                     mMagazineAdpater.addItem(HFNS);
-                                Log.i("mWaterfallView", "  =" + HFNS);
+//                                Log.i("mWaterfallView", "  =" + HFNS);
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -564,14 +588,17 @@ public class MagazineFragment extends android.support.v4.app.Fragment implements
                 request3.executeAsync();
 
                 loginButton.setVisibility(View.INVISIBLE);
+                loginGuide.setVisibility(View.INVISIBLE);
             } else
 
             {
                 loginButton.setVisibility(View.VISIBLE);
+                loginGuide.setVisibility(View.VISIBLE);
             }
         }
         ;
     }
+
 
 }
 

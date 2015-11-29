@@ -164,14 +164,14 @@ public class NewsSearchActivity extends Activity implements View.OnClickListener
         int top = c.getTop();
         int height = mToolBar.getHeight();
 
-        Log.d("Get top 1= ", Integer.toString(c.getTop()));
-        Log.d("Get top position = ", " " + view.getFirstVisiblePosition());
+//        Log.d("Get top 1= ", Integer.toString(c.getTop()));
+//        Log.d("Get top position = ", " " + view.getFirstVisiblePosition());
         int headerHeight = 0;
         if (firstVisiblePosition >= 1) {
             return -height;
         }
 
-        Log.d("Get top total = ", " " + top);
+//        Log.d("Get top total = ", " " + top);
         return top;
     }
 
@@ -209,7 +209,7 @@ public class NewsSearchActivity extends Activity implements View.OnClickListener
     private class FetchltemsTask extends AsyncTask<String, Void, ArrayList<NaverNews>> {
         @Override
         protected ArrayList<NaverNews> doInBackground(String... params) {
-            Log.i("intext fetch", "L is " + params[0]);
+//            Log.i("intext fetch", "L is " + params[0]);
             return new XMLPullNewsFeedParser(params[0]).fetchItems();
         }
 
@@ -301,14 +301,14 @@ public class NewsSearchActivity extends Activity implements View.OnClickListener
                 return;
             }
             NaverNews NNS = news_adapter.getItem(position - 1);
-            Log.i("position", "positon " + position + "Clicked ");
+//            Log.i("position", "positon " + position + "Clicked ");
             URL urls = NNS.getOriginalLink();
             Intent intent = new Intent(getApplicationContext(), ParallaxWebviewActivity.class);
             intent.putExtra("uris", urls.toExternalForm());
             intent.putExtra("title", NNS.getTitle().substring(0, 18));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            Log.i("position ", "VALE " + "Clicked ");
+//            Log.i("position ", "VALE " + "Clicked ");
         }
     }
 

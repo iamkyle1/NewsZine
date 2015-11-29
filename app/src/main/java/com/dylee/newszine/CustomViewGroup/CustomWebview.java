@@ -45,7 +45,7 @@ public class CustomWebview extends WebView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.i("Custom Webview", "Custom Webview");
+//        Log.i("Custom Webview", "Custom Webview");
         float yfinalDistance = 0;
         boolean firstFlag = true;
         float inintialHeight = 0;

@@ -110,14 +110,14 @@ public class ParallaxWebviewActivity extends Activity implements View.OnClickLis
         int top = c.getTop();
         int height = mToolBar.getHeight();
 
-        Log.d("Get top 1= ", Integer.toString(c.getTop()));
-        Log.d("Get top position = ", " " + view.getFirstVisiblePosition());
+//        Log.d("Get top 1= ", Integer.toString(c.getTop()));
+//        Log.d("Get top position = ", " " + view.getFirstVisiblePosition());
         int headerHeight = 0;
         if (firstVisiblePosition >= 1) {
             return -height;
         }
 
-        Log.d("Get top total = ", " " + top);
+//        Log.d("Get top total = ", " " + top);
         return top;
     }
 
@@ -154,7 +154,7 @@ public class ParallaxWebviewActivity extends Activity implements View.OnClickLis
                 try {
                     this.startActivity(intent);
                 } catch (Exception e) {
-                    Log.i("  exception", " :" + e);
+//                    Log.i("  exception", " :" + e);
                 }
                 break;
             case R.id.mid_back_key:

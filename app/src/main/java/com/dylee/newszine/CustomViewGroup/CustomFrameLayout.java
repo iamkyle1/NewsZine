@@ -64,7 +64,7 @@ public class CustomFrameLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("Touch event", "View Group Touch Event");
+//        Log.i("Touch event", "View Group Touch Event");
 //      return true;
         return super.onTouchEvent(event);
     }
@@ -99,12 +99,12 @@ public class CustomFrameLayout extends FrameLayout {
                 curX = ev.getX();
                 curY = ev.getY();
                 yDistance = curY - lastY;
-                Log.i("CURXY ", "CUR Y= " + curY + "  Last Y=" + lastY + " yDistance=" + yDistance);
+//                Log.i("CURXY ", "CUR Y= " + curY + "  Last Y=" + lastY + " yDistance=" + yDistance);
 
                 lastX = curX;
                 lastY = curY;
 
-                Log.i("gtY ", "getTY " + mToolbar.getTranslationY());
+//                Log.i("gtY ", "getTY " + mToolbar.getTranslationY());
                 if (mToolbar.getTranslationY() <= 0 & mToolbar.getTranslationY() >= -inintialHeight) {
                     if (mToolbar.getTranslationY() + yDistance >= -inintialHeight && mToolbar.getTranslationY() + yDistance <= 0) {
                         mToolbar.setTranslationY(mToolbar.getTranslationY() + yDistance);

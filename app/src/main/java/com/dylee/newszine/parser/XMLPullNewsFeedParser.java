@@ -20,7 +20,7 @@ public class XMLPullNewsFeedParser extends BaseNewsFeedParser {
     public ArrayList<NaverNews> fetchItems() {
         ArrayList<NaverNews> NewsList = null;
         XmlPullParser parser = Xml.newPullParser();
-        Log.i("intext", "fetch items");
+//        Log.i("intext", "fetch items");
 
         try {
             // auto-detect the encoding from the stream
@@ -37,19 +37,19 @@ public class XMLPullNewsFeedParser extends BaseNewsFeedParser {
                 switch (eventType) {
                     case XmlPullParser.START_DOCUMENT:
                         NewsList = new ArrayList<>();
-                        Log.i("intext", "fetch itmes start document");
+//                        Log.i("intext", "fetch itmes start document");
                         break;
                     case XmlPullParser.START_TAG:
                         name = parser.getName();
-                        Log.i("intext", "fetch itmes start tag        " + name);
+//                        Log.i("intext", "fetch itmes start tag        " + name);
                         if (name.equalsIgnoreCase(NaverNews.ITEM)) {
                             currentNews = new NaverNews();
-                            Log.i("intext", "fetch itmes start tag/item---------" + name);
+//                            Log.i("intext", "fetch itmes start tag/item---------" + name);
                         } else if (currentNews != null) {
                             if (name.equalsIgnoreCase(NaverNews.TITLE)) {
                                 currentNews.setTitle(parser.nextText());
 //                                currentNews.setTitle(" test");
-//                                Log.i("intext", "fetch itmes title");
+                                Log.i("intext", "fetch itmes title");
                             } else if (name.equalsIgnoreCase(NaverNews.ORIGINAL_LINK)) {
                                 currentNews.setOriginalLink(parser.nextText());
 //                                currentNews.setOriginalLink(" test");
@@ -71,12 +71,12 @@ public class XMLPullNewsFeedParser extends BaseNewsFeedParser {
                         break;
                     case XmlPullParser.END_TAG:
                         name = parser.getName();
-                        Log.i("intext", "fetch itmes end_tag");
+//                        Log.i("intext", "fetch itmes end_tag");
                         if (name.equalsIgnoreCase(NaverNews.ITEM) && currentNews != null) {
                             NewsList.add(currentNews);
-                            Log.i("intext", "print " + currentNews.getTitle());
+//                            Log.i("intext", "print " + currentNews.getTitle());
                         } else if (name.equalsIgnoreCase(NaverNews.CHANNEL)) {
-                            Log.i("intext", "fetch itmes end_tag new end_channle");
+//                            Log.i("intext", "fetch itmes end_tag new end_channle");
                             done = true;
                         }
                         break;

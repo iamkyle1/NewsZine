@@ -35,7 +35,7 @@
         android:foregroundGravity="center_horizontal"
         android:layoutMode="opticalBounds"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"/>
+        ads:adUnitId="@string/rec_banner_ad_unit_id"/>
 
     <Button
         android:id="@+id/dialogButtonOK"

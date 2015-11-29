@@ -34,6 +34,9 @@ import java.util.List;
 //import com.skplanet.ocb.soi.gpb.MainFeedsProtos;
 
 public final class FeedGridAdapter extends BaseAdapter {
+    private static final String TAG = FeedGridAdapter.class.getSimpleName();
+    private static final boolean DEBUG = com.dylee.newszine.BuildMode.ENABLE_LOG;
+
 
     public static class MainFeedItemViewHolder {
         public ImageView feedTotalImage;
@@ -67,7 +70,7 @@ public final class FeedGridAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if (this.mDataSetList != null) {
-            Log.i("Size = ", " +  itemCount" + this.mDataSetList.size());
+//            Log.i("Size = ", " +  itemCount" + this.mDataSetList.size());
             return this.mDataSetList.size();
         }
         return 0;
@@ -199,7 +202,7 @@ public final class FeedGridAdapter extends BaseAdapter {
 
         holder.single.feedTotalImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
-        Glide.with(mActivity).load(mainFeed.getImgResource()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.single.feedTotalImage);
+        Glide.with(mActivity).load(mainFeed.getImgResource()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888).diskCacheStrategy(DiskCacheStrategy.ALL).override(680,300).into(holder.single.feedTotalImage);
 
         sDestUrl = mainFeed.getURL();
 
@@ -218,7 +221,7 @@ public final class FeedGridAdapter extends BaseAdapter {
                             mActivity.startActivity(intent);
 //                        Log.i("VALE", "VALE " + "Clicked ");}
                         } catch (Exception e) {
-                            Log.i("  exception", " :" + e);
+//                            Log.i("  exception", " :" + e);
                         }
                     }
                 });

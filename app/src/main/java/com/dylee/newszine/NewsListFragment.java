@@ -93,26 +93,26 @@ public class NewsListFragment extends android.support.v4.app.Fragment {
         };
 
         int[] iDrawable = {
-                R.drawable.news_daum
-                , R.drawable.news_donga
-                , R.drawable.news_han
-                , R.drawable.news_ja
-                , R.drawable.news_yoenhap
-                , R.drawable.news_kh
-                , R.drawable.news_ytn
-                , R.drawable.news_money
-                , R.drawable.news_nate
-                , R.drawable.news_naver
-                , R.drawable.news_nocut
-                , R.drawable.news_zdnet
-                , R.drawable.news_metro
-                , R.drawable.new_etnews
-                , R.drawable.news_dispatch
-                , R.drawable.news_sportsseoul
-                , R.drawable.news_wallstreet
-                , R.drawable.news_tapa
-                , R.drawable.news_koreaherald
-                , R.drawable.news_ohmynews
+                R.drawable.news1_daum
+                , R.drawable.news1_donga
+                , R.drawable.news1_han
+                , R.drawable.news1_ja
+                , R.drawable.news1_yoenhap
+                , R.drawable.news1_kh
+                , R.drawable.news1_ytn
+                , R.drawable.news1_money
+                , R.drawable.news1_nate
+                , R.drawable.news1_naver
+                , R.drawable.news1_nocut
+                , R.drawable.news1_zdnet
+                , R.drawable.news1_metro
+                , R.drawable.news1_etnews
+                , R.drawable.news1_dispatch
+                , R.drawable.news1_sports
+                , R.drawable.news1_wsj
+                , R.drawable.news1_newstapa
+                , R.drawable.news1_koreaherald
+                , R.drawable.news1_ohmynews
         };
 
         String[] sTitle = {
@@ -142,18 +142,6 @@ public class NewsListFragment extends android.support.v4.app.Fragment {
             newsObjectList.add((new NewsObject()).setValue(sLandingURL[i], iDrawable[i], sTitle[i]));
         }
 
-//        for (int i = 0; i < 4; i++) {
-//            newsObjectList.add((new NewsObject()).setValue(sLandingURL[i], iDrawable[i],sTitle[i]));
-//        }
-
-//        mFeedAdapter.clearAdapter();
-//        mFeedAdapter.addAll(newsObjectList);
-
-//        int height = 250;
-//        for (int i = 0; i < sLandingURL.length; i++) {
-//            height = height + 250;
-//        }
-//        GV.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, height));
 
         mFeedGridAdapter.clearAdapter();
         mFeedGridAdapter.addAll(newsObjectList);

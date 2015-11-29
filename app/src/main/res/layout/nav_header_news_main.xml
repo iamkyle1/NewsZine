@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/TV"
-            android:text="문의 : kyle_leee@nate.com"/>
+            android:text="문의 : dongyoung.kyle@gmail.com"/>
 
         <!--android:paddingTop="@dimen/nav_header_vertical_spacing"-->
     </RelativeLayout>
